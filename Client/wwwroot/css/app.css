@@ -666,16 +666,6 @@ h1, h2, h3, h4 {
   border-color: rgba(197, 160, 89, 0.45);
 }
 
-.card-featured h3,
-.card-featured h4 {
-  color: #fff;
-}
-
-.card-featured p,
-.card-featured li {
-  color: rgba(255, 255, 255, 0.8);
-}
-
 .card-icon {
   width: 46px;
   height: 46px;
@@ -728,6 +718,24 @@ h1, h2, h3, h4 {
   top: 0;
   color: var(--gold-500);
   font-weight: 700;
+}
+
+/* High-contrast text overrides for dark navy featured cards */
+.card.card-featured h2,
+.card.card-featured h3,
+.card.card-featured h4,
+.card.card-featured strong {
+  color: #ffffff;
+}
+
+.card.card-featured p,
+.card.card-featured li,
+.card.card-featured .check-list li {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.card.card-featured .check-list li::before {
+  color: var(--gold-300);
 }
 
 .card-footer-cta {
