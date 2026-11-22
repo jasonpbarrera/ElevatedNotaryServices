@@ -199,6 +199,16 @@ h1, h2, h3, h4 {
   gap: 0.45rem 1.15rem;
 }
 
+.top-bar-group:first-child {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .top-bar-group:first-child {
+    display: flex;
+  }
+}
+
 .top-bar a:hover {
   color: var(--gold-300);
 }
@@ -453,9 +463,9 @@ h1, h2, h3, h4 {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.42rem 0.9rem;
-  border-radius: 999px;
+  gap: 0.35rem 0.5rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 12px;
   border: 1px solid rgba(197, 160, 89, 0.45);
   background: rgba(11, 25, 44, 0.72);
   color: var(--gold-300);
