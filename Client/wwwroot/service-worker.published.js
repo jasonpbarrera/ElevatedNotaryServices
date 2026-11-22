@@ -29,29 +29,45 @@ async function onActivate(event) {
 }
 
 async function onFetch(event) {
-    if (event.request.method !== 'GET' || event.request.url.includes('/api/')) {
-        return fetch(event.request);
+    const req = event.request;
+    if (req.method !== 'GET' || req.url.includes('/api/')) {
+        return fetch(req);
     }
 
-    const isNavigation = event.request.mode === 'navigate';
-    const isDynamicAsset = isNavigation
-        || event.request.url.endsWith('.html')
-        || event.request.url.endsWith('.css');
+    const url = new URL(req.url);
+    if (url.origin !== self.location.origin) {
+        return fetch(req);
+    }
 
-    // Network-first for HTML navigation and CSS so new deployments never serve stale fingerprinted asset hashes
+    const isNavigation = req.mode === 'navigate';
+    const isDynamicAsset = isNavigation
+        || url.pathname.endsWith('.html')
+        || url.pathname.endsWith('.css');
+
+    // Network-first for HTML navigation & CSS using URL string + redirect:'follow'
+    // so directory-shell redirects (e.g. /services -> /services/) never fail with opaqueredirect
     if (isDynamicAsset) {
         try {
-            const networkResponse = await fetch(event.request, { cache: 'no-cache' });
+            const networkResponse = await fetch(req.url, { cache: 'no-cache', redirect: 'follow' });
             if (networkResponse && networkResponse.ok) {
                 return networkResponse;
             }
         } catch {
-            // Offline: fall through to cached copy
+            // Offline: fall back to cached copy below
         }
     }
 
     const cache = await caches.open(cacheName);
-    const request = isNavigation ? 'index.html' : event.request;
-    const cachedResponse = await cache.match(request);
-    return cachedResponse || fetch(event.request);
+    const cacheKey = isNavigation ? 'index.html' : req;
+    const cachedResponse = await cache.match(cacheKey);
+    if (cachedResponse) {
+        return cachedResponse;
+    }
+
+    try {
+        return await fetch(req.url, { redirect: 'follow' });
+    } catch {
+        const fallback = await cache.match('index.html');
+        return fallback || Response.error();
+    }
 }
