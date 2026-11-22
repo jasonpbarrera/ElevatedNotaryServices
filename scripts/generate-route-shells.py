@@ -48,6 +48,42 @@ ROUTES = {
         "title": "Terms of Service | Elevated Notary Services",
         "description": "Terms of Service for Elevated Notary Services including notarial disclaimers, appointment policies, billing, and Tennessee jurisdiction.",
     },
+    "resources": {
+        "title": "Notary Resources & Blog Articles | Elevated Notary Services",
+        "description": "Expert notary resources, Tennessee notary ethics guides, Mobile vs. RON comparisons, and title closing insights from Elevated Notary Services.",
+    },
+    "resources/notarial-certificates-and-risks": {
+        "title": "Blank Notarial Certificates & Risks | Elevated Notary Services",
+        "description": "Why professional signing agents protect every closing by tying each notarial certificate to an actual notarial act.",
+    },
+    "resources/trusted-notary-signing-agent-cleveland-tn": {
+        "title": "Trusted Notary Signing Agent in Cleveland, TN | Elevated Notary Services",
+        "description": "How experienced signing coordination prevents funding delays for title companies, lenders, and real estate teams.",
+    },
+    "resources/tennessee-notary-ethics-integrity": {
+        "title": "Tennessee Notary Ethics & Integrity | Elevated Notary Services",
+        "description": "The core ethical principles — impartiality, accuracy, identity verification, and confidentiality — guiding every ENS assignment.",
+    },
+    "resources/notary-role-faq": {
+        "title": "What Is a Notary Public's Job? (Role FAQ & ID Checklist) | Elevated Notary Services",
+        "description": "Clearing up common myths about notarization and exactly what identification to bring to your appointment.",
+    },
+    "resources/ron-for-title-companies-tennessee": {
+        "title": "Remote Online Notarization (RON) for Title Companies | Elevated Notary Services",
+        "description": "Streamlining eligible real estate closings with secure, compliant Remote Online Notarization in Tennessee and nationwide.",
+    },
+    "resources/mobile-notary-vs-remote-online-notary": {
+        "title": "Mobile Notary vs. Remote Online Notarization (RON) | Elevated Notary Services",
+        "description": "Side-by-side guide to choosing between a mobile notary visit, walk-in storefront signing, or online RON session.",
+    },
+    "resources/title-escrow-closing-readiness-checklist": {
+        "title": "Title & Escrow Closing Readiness Checklist | Elevated Notary Services",
+        "description": "Five operational habits title teams and signing services use to eliminate funding delays and achieve zero-defect closings.",
+    },
+    "resources/estate-planning-poa-signing-guide-tennessee": {
+        "title": "Estate Planning & Power of Attorney Signing Guide (SE TN) | Elevated Notary Services",
+        "description": "How families in Cleveland and Bradley County can prepare IDs, witnesses, and documents for smooth estate planning signings.",
+    },
 }
 
 

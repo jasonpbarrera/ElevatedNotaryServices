@@ -1,0 +1,85 @@
+@page "/resources/{Slug}"
+@using ElevatedNotaryServices.Client.Data
+
+@if (article is null)
+{
+    <PageTitle>Article Not Found | Elevated Notary Services</PageTitle>
+    <section class="section" style="text-align:center; padding: 6rem 1.25rem;">
+        <div class="container" style="max-width:600px;">
+            <span class="eyebrow">Resources</span>
+            <h1 style="margin:0.75rem 0 1rem;">Article Not Found</h1>
+            <p style="color:var(--text-muted); margin-bottom:1.75rem;">Browse all guides and compliance articles in our Notary Resources hub.</p>
+            <a href="/resources" class="btn btn-gold">View All Resources</a>
+        </div>
+    </section>
+}
+else
+{
+    <PageTitle>@article.Title | Elevated Notary Services</PageTitle>
+    <HeadContent>
+        <meta name="description" content="@article.Excerpt" />
+    </HeadContent>
+
+    <section class="page-hero">
+        <div class="container" style="max-width: 880px;">
+            <div style="margin-bottom:0.85rem; font-size:0.84rem; color:var(--gold-300);">
+                <a href="/resources" style="text-decoration:underline;">← Back to Resources &amp; Blog</a>
+                <span style="margin:0 0.5rem;">&bull;</span>
+                <span>@article.Category</span>
+                <span style="margin:0 0.5rem;">&bull;</span>
+                <span>@article.ReadTime</span>
+            </div>
+            <h1>@article.Title</h1>
+            <p>@article.Subtitle</p>
+            <div style="margin-top:1rem; font-size:0.84rem; color:rgba(255,255,255,0.7);">
+                By Elevated Notary Services &bull; @article.PublishedDate
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container" style="max-width: 880px;">
+            <article class="card" style="gap:1.35rem; padding: 2.25rem;">
+                @foreach (var sec in article.Sections)
+                {
+                    <div>
+                        <h2 style="font-size:1.75rem; margin-bottom:0.75rem;">@sec.Heading</h2>
+                        @foreach (var p in sec.Paragraphs)
+                        {
+                            <p style="color:var(--text-body); margin:0 0 0.9rem; font-size:0.98rem;">@p</p>
+                        }
+                        @if (sec.Bullets is { Length: > 0 })
+                        {
+                            <ul class="check-list" style="margin-bottom:0.25rem;">
+                                @foreach (var b in sec.Bullets)
+                                {
+                                    <li>@b</li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                }
+
+                <div style="background:var(--stone); border-left:3px solid var(--gold-500); padding:1rem 1.25rem; border-radius:var(--radius-sm); font-size:0.84rem; color:var(--text-muted);">
+                    <strong>Important Legal Disclaimer:</strong> Elevated Notary Services is not a law firm, and our notaries are not attorneys licensed to practice law in the State of Tennessee. This article is for general educational purposes only and does not constitute legal advice.
+                </div>
+
+                <div style="display:flex; flex-wrap:wrap; gap:0.75rem; padding-top:0.5rem;">
+                    <a href="/request-signing" class="btn btn-gold">Request a Signing</a>
+                    <a href="/contact" class="btn btn-outline-navy">Contact Our Team</a>
+                    <a href="/resources" class="btn btn-outline-navy">More Articles</a>
+                </div>
+            </article>
+        </div>
+    </section>
+}
+
+@code {
+    [Parameter] public string Slug { get; set; } = "";
+    private BlogArticle? article;
+
+    protected override void OnParametersSet()
+    {
+        article = BlogRepository.FindBySlug(Slug);
+    }
+}

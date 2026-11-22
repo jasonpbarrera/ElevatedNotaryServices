@@ -1,0 +1,119 @@
+@page "/resources"
+@using ElevatedNotaryServices.Client.Data
+
+<PageTitle>Notary Resources &amp; Blog Articles | Elevated Notary Services</PageTitle>
+<HeadContent>
+    <meta name="description" content="Expert notary resources, Tennessee notary ethics guides, Mobile vs. RON comparisons, and title closing insights from Elevated Notary Services in Cleveland, TN." />
+</HeadContent>
+
+<section class="page-hero">
+    <div class="container">
+        <span class="eyebrow eyebrow-light">Notary Resources &amp; Insights</span>
+        <h1>Guides for Title Partners, Signers &amp; Notaries</h1>
+        <p>
+            Practical compliance articles, closing checklists, and signer preparation guides from the Elevated Notary Services team.
+        </p>
+    </div>
+</section>
+
+<!-- Fresh Interactive Tool: Mobile vs. Walk-In vs. RON Recommender -->
+<section class="section section-stone" style="padding: 3rem 0;">
+    <div class="container">
+        <div class="card" style="border-color: var(--border-gold);">
+            <span class="eyebrow">Interactive Guide</span>
+            <h2 style="font-size:1.85rem; margin: 0.35rem 0 0.5rem;">Not Sure Which Notarization Option You Need?</h2>
+            <p style="color:var(--text-muted); margin-bottom:1.25rem;">Select what best describes your situation for an instant recommendation:</p>
+            <div class="tab-bar" style="margin-bottom:1.25rem;">
+                <button type="button" class="tab-btn @(recommender == "title" ? "active" : "")" @onclick='() => recommender = "title"'>Real Estate / Loan Closing</button>
+                <button type="button" class="tab-btn @(recommender == "local" ? "active" : "")" @onclick='() => recommender = "local"'>Wet-Ink / Local SE Tennessee</button>
+                <button type="button" class="tab-btn @(recommender == "remote" ? "active" : "")" @onclick='() => recommender = "remote"'>Out of State / Fast Online</button>
+                <button type="button" class="tab-btn @(recommender == "walkin" ? "active" : "")" @onclick='() => recommender = "walkin"'>Quick Walk-In (Cleveland, TN)</button>
+            </div>
+            @if (recommender == "title")
+            {
+                <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; background:var(--alabaster); padding:1.15rem 1.25rem; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                    <div>
+                        <strong>Recommended: Nationwide Signing Coordination ($1M E&amp;O Insured)</strong>
+                        <p style="margin:0.25rem 0 0; font-size:0.9rem;">Place your order directly through our Notary Everyday portal or submit an immediate signing dispatch request.</p>
+                    </div>
+                    <a href="/title-lender-solutions" class="btn btn-gold btn-sm">Title &amp; Lender Hub →</a>
+                </div>
+            }
+            else if (recommender == "local")
+            {
+                <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; background:var(--alabaster); padding:1.15rem 1.25rem; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                    <div>
+                        <strong>Recommended: Mobile Notary Visit (We Come to You)</strong>
+                        <p style="margin:0.25rem 0 0; font-size:0.9rem;">Ideal for POAs, wills, hospital/facility visits, or multiple signers across Bradley, Hamilton &amp; surrounding counties.</p>
+                    </div>
+                    <a href="https://calendar.app.google/vDKDJhA1K5muzWr18" target="_blank" rel="noopener noreferrer" class="btn btn-navy btn-sm">Book Mobile Notary ↗</a>
+                </div>
+            }
+            else if (recommender == "remote")
+            {
+                <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; background:var(--alabaster); padding:1.15rem 1.25rem; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                    <div>
+                        <strong>Recommended: Remote Online Notarization (RON)</strong>
+                        <p style="margin:0.25rem 0 0; font-size:0.9rem;">Connect securely via smartphone or computer from anywhere nationwide and receive your notarized PDF right away.</p>
+                    </div>
+                    <a href="/request-signing" class="btn btn-gold btn-sm">Schedule Online RON →</a>
+                </div>
+            }
+            else
+            {
+                <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; background:var(--alabaster); padding:1.15rem 1.25rem; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                    <div>
+                        <strong>Recommended: Walk-In Storefront (130 Bernham Dr NW, Cleveland, TN)</strong>
+                        <p style="margin:0.25rem 0 0; font-size:0.9rem;">Walk-ins welcome Mon–Fri 8:30 AM–8:00 PM ET &amp; Sat 10:00 AM–4:00 PM ET. Bring your photo ID and unsigned document.</p>
+                    </div>
+                    <a href="/contact" class="btn btn-navy btn-sm">Get Directions →</a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Blog Articles Grid -->
+<section class="section">
+    <div class="container">
+        <div class="tab-bar" role="tablist" aria-label="Filter articles by topic">
+            @foreach (var cat in categories)
+            {
+                <button type="button" class="tab-btn @(selectedCategory == cat ? "active" : "")" @onclick="() => selectedCategory = cat">
+                    @cat
+                </button>
+            }
+        </div>
+
+        <div class="grid-3">
+            @foreach (var article in FilteredArticles)
+            {
+                <article class="card">
+                    <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem; margin-bottom:0.75rem;">
+                        <span class="pill" style="font-size:0.74rem; padding:0.25rem 0.65rem;">@article.Category</span>
+                        <span style="font-size:0.78rem; color:var(--text-muted);">@article.ReadTime</span>
+                    </div>
+                    <h2 style="font-size:1.45rem; margin-bottom:0.65rem;">
+                        <a href="/resources/@article.Slug">@article.Title</a>
+                    </h2>
+                    <p style="font-size:0.92rem;">@article.Excerpt</p>
+                    <div class="card-footer-cta" style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--stone); padding-top:0.85rem;">
+                        <span style="font-size:0.78rem; color:var(--text-muted);">@article.PublishedDate @(article.IsNew ? "· New" : "")</span>
+                        <a href="/resources/@article.Slug" style="font-size:0.86rem; font-weight:700; color:var(--navy-900);">Read Article →</a>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    private string selectedCategory = "All";
+    private string recommender = "title";
+    private readonly string[] categories = { "All", "Title & Lenders", "Signer Guides", "Notary Compliance" };
+
+    private IEnumerable<BlogArticle> FilteredArticles =>
+        selectedCategory == "All"
+            ? BlogRepository.Articles
+            : BlogRepository.Articles.Where(a => a.Category == selectedCategory);
+}

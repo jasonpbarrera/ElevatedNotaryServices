@@ -50,4 +50,49 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://elevatednotary.jbdigitalservices.net/resources</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://elevatednotary.jbdigitalservices.net/resources/notarial-certificates-and-risks</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://elevatednotary.jbdigitalservices.net/resources/trusted-notary-signing-agent-cleveland-tn</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://elevatednotary.jbdigitalservices.net/resources/tennessee-notary-ethics-integrity</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://elevatednotary.jbdigitalservices.net/resources/notary-role-faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://elevatednotary.jbdigitalservices.net/resources/ron-for-title-companies-tennessee</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://elevatednotary.jbdigitalservices.net/resources/mobile-notary-vs-remote-online-notary</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://elevatednotary.jbdigitalservices.net/resources/title-escrow-closing-readiness-checklist</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://elevatednotary.jbdigitalservices.net/resources/estate-planning-poa-signing-guide-tennessee</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
