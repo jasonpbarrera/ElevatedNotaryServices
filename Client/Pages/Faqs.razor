@@ -1,0 +1,79 @@
+@page "/faqs"
+
+<PageTitle>Frequently Asked Questions | Elevated Notary Services</PageTitle>
+<HeadContent>
+    <meta name="description" content="Answers to common questions about Elevated Notary Services, nationwide loan signing coordination, Cleveland TN walk-in and mobile notary appointments, and Remote Online Notarization (RON)." />
+</HeadContent>
+
+<section class="page-hero">
+    <div class="container">
+        <span class="eyebrow eyebrow-light">Knowledge Base</span>
+        <h1>Frequently Asked Questions</h1>
+        <p>Clear answers for title officers, lenders, borrowers, and local notarization clients.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="faq-list">
+            @for (int i = 0; i < faqs.Length; i++)
+            {
+                var idx = i;
+                var isOpen = openIndex == idx;
+                <div class="faq-item">
+                    <button type="button" class="faq-question" @onclick="() => Toggle(idx)" aria-expanded="@isOpen">
+                        <span>@faqs[idx].Question</span>
+                        <span style="color:var(--gold-500); font-size:1.25rem; flex-shrink:0;">@(isOpen ? "−" : "+")</span>
+                    </button>
+                    @if (isOpen)
+                    {
+                        <div class="faq-answer">@faqs[idx].Answer</div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div style="margin-top:2.5rem; display:flex; flex-wrap:wrap; gap:0.75rem;">
+            <a href="/request-signing" class="btn btn-gold">Request a Signing</a>
+            <a href="/contact" class="btn btn-outline-navy">Still Have Questions? Contact Us</a>
+        </div>
+    </div>
+</section>
+
+@code {
+    private int openIndex = 0;
+
+    private void Toggle(int index) => openIndex = openIndex == index ? -1 : index;
+
+    private readonly (string Question, string Answer)[] faqs =
+    {
+        (
+            "What services does Elevated Notary Services provide?",
+            "We provide nationwide 50-state loan signing coordination for title companies, lenders, and attorneys, as well as local mobile notary services, walk-in storefront notarizations in Cleveland, TN, Remote Online Notarization (RON), trust and estate signings, jail/detention center notarizations, and Tennessee wedding officiant services."
+        ),
+        (
+            "Do I need to be located in Tennessee to use your services?",
+            "No. While our physical storefront and local mobile team serve Southeast Tennessee (Cleveland, Bradley, Hamilton, Polk, Meigs, McMinn, Rhea, and Monroe counties), our vetted notary network coordinates in-person loan signings across all 50 states, and Remote Online Notarization (RON) is available nationwide subject to applicable state laws."
+        ),
+        (
+            "How do title companies and lenders place a signing order?",
+            "Existing partners can log in directly through our Notary Everyday Client Portal to place orders and track status in real time. New title or lender partners can create an account in minutes or submit an immediate assignment through our Request a Signing page."
+        ),
+        (
+            "Are you insured for high-value real estate closings?",
+            "Yes. Elevated Notary Services carries $1,000,000 in Errors & Omissions (E&O) coverage and works with vetted, background-checked signing agents nationwide. Our W-9 and Certificate of Insurance are available upon request."
+        ),
+        (
+            "Do you accept walk-ins at your Cleveland, TN office?",
+            "Yes! Walk-ins are welcome at 130 Bernham Dr NW, Cleveland, TN 37312 during regular business hours (Monday–Friday 8:30 AM–8:00 PM ET, Saturday 10:00 AM–4:00 PM ET). Sunday and after-hours appointments are available by request."
+        ),
+        (
+            "What identification do I need to bring to a notarization?",
+            "Signers must present a valid, unexpired government-issued photo ID (such as a state driver's license, state ID card, U.S. passport, or military ID). Please leave your documents unsigned until you are in the presence of the notary."
+        ),
+        (
+            "Can a notary provide legal advice or draft documents?",
+            "No. As Tennessee notaries public, we are not attorneys licensed to practice law and cannot provide legal advice, draft legal documents, or advise which notarial certificate is legally required for your document."
+        )
+    };
+}

@@ -1,0 +1,20 @@
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <PageTitle>Page Not Found | Elevated Notary Services</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <section class="section" style="padding: 6rem 1.25rem; text-align: center;">
+                <div class="container" style="max-width: 600px;">
+                    <span class="eyebrow">404 — Page Not Found</span>
+                    <h1 style="margin: 0.75rem 0 1rem; font-size: 2.5rem;">We couldn't locate that page.</h1>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                        Return to the Elevated Notary Services home page to request a signing or schedule a mobile or online notary appointment.
+                    </p>
+                    <a href="/" class="btn btn-gold">Return Home</a>
+                </div>
+            </section>
+        </LayoutView>
+    </NotFound>
+</Router>

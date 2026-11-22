@@ -1,0 +1,24 @@
+{
+  "name": "Elevated Notary Services",
+  "short_name": "Elevated Notary",
+  "description": "Nationwide 50-state loan signing coordination and Southeast Tennessee mobile, storefront, and Remote Online Notarization (RON) services.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0B192C",
+  "theme_color": "#0B192C",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}

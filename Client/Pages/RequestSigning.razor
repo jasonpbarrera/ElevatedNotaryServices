@@ -1,0 +1,212 @@
+@page "/request-signing"
+@inject HttpClient Http
+
+<PageTitle>Request a Signing or Notary Appointment | Elevated Notary Services</PageTitle>
+<HeadContent>
+    <meta name="description" content="Submit a nationwide loan signing request or book a local mobile notary, Remote Online Notarization (RON), or storefront appointment with Elevated Notary Services." />
+</HeadContent>
+
+<section class="page-hero">
+    <div class="container">
+        <span class="eyebrow eyebrow-light">Fast Order Dispatch</span>
+        <h1>Request a Signing</h1>
+        <p>
+            Submit your closing order or notary request below. Our coordination desk reviews every submission promptly and follows up directly to confirm scheduling.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="grid-2" style="align-items:start;">
+            <div class="form-card">
+                @if (submitted)
+                {
+                    <div class="alert-success" role="status">
+                        <h3 style="margin-bottom:0.4rem; color:#065F46;">Request Received</h3>
+                        <p style="margin:0 0 1rem; color:#065F46;">
+                            Thank you, <strong>@model.Name</strong>. Your request has been submitted to the Elevated Notary Services coordination desk. For urgent same-day assignments, please call <a href="tel:4233758770" style="text-decoration:underline;">(423) 375-8770</a>.
+                        </p>
+                        <button type="button" class="btn btn-navy btn-sm" @onclick="ResetForm">Submit Another Request</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="tab-bar" style="margin-bottom:1.5rem;">
+                        <button type="button" class="tab-btn @(model.ClientCategory == "Title / Lender Order" ? "active" : "")"
+                                @onclick='() => SetCategory("Title / Lender Order")'>
+                            Title / Lender Order
+                        </button>
+                        <button type="button" class="tab-btn @(model.ClientCategory == "Individual / Local Notary" ? "active" : "")"
+                                @onclick='() => SetCategory("Individual / Local Notary")'>
+                            Individual / Local Notary
+                        </button>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        <div class="alert-error" role="alert" style="margin-bottom:1.25rem;">@errorMessage</div>
+                    }
+
+                    <EditForm Model="model" OnValidSubmit="HandleSubmit" class="form-grid">
+                        <DataAnnotationsValidator />
+
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="website-hp">Website</label>
+                            <InputText id="website-hp" @bind-Value="model.Honeypot" tabindex="-1" autocomplete="off" />
+                        </div>
+
+                        <div class="form-grid form-grid-2">
+                            <div class="form-group">
+                                <label for="req-name">Full Name *</label>
+                                <InputText id="req-name" class="form-control" @bind-Value="model.Name" placeholder="Jane Doe" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="req-org">@(model.ClientCategory == "Title / Lender Order" ? "Title Company / Lender / Firm" : "Company (Optional)")</label>
+                                <InputText id="req-org" class="form-control" @bind-Value="model.Organization" placeholder="First National Title" />
+                            </div>
+                        </div>
+
+                        <div class="form-grid form-grid-2">
+                            <div class="form-group">
+                                <label for="req-email">Email Address *</label>
+                                <InputText id="req-email" type="email" class="form-control" @bind-Value="model.Email" placeholder="name@company.com" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="req-phone">Phone Number *</label>
+                                <InputText id="req-phone" type="tel" class="form-control" @bind-Value="model.Phone" placeholder="(423) 555-0199" required />
+                            </div>
+                        </div>
+
+                        <div class="form-grid form-grid-2">
+                            <div class="form-group">
+                                <label for="req-service">Service / Closing Type *</label>
+                                <InputSelect id="req-service" class="form-control" @bind-Value="model.ServiceType">
+                                    @if (model.ClientCategory == "Title / Lender Order")
+                                    {
+                                        <option value="Purchase / Seller Loan Closing">Purchase / Seller Loan Closing</option>
+                                        <option value="Refinance / HELOC Closing">Refinance / HELOC Closing</option>
+                                        <option value="Reverse Mortgage / Modification">Reverse Mortgage / Modification</option>
+                                        <option value="Commercial Real Estate Closing">Commercial Real Estate Closing</option>
+                                        <option value="Remote Online Notarization (RON) Closing">Remote Online Notarization (RON) Closing</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Mobile Notary (SE Tennessee)">Mobile Notary (SE Tennessee)</option>
+                                        <option value="Remote Online Notarization (RON)">Remote Online Notarization (RON)</option>
+                                        <option value="Walk-In Storefront (Cleveland, TN)">Walk-In Storefront (Cleveland, TN)</option>
+                                        <option value="Jail / Detention Center Notary">Jail / Detention Center Notary</option>
+                                        <option value="Wedding Officiant Service">Wedding Officiant Service</option>
+                                    }
+                                </InputSelect>
+                            </div>
+                            <div class="form-group">
+                                <label for="req-date">Target Date &amp; Time</label>
+                                <InputText id="req-date" class="form-control" @bind-Value="model.PreferredDate" placeholder="e.g., Tomorrow at 2:00 PM ET" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="req-location">Signing City, State &amp; ZIP</label>
+                            <InputText id="req-location" class="form-control" @bind-Value="model.Location" placeholder="Cleveland, TN 37312 (or Nationwide City/State)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="req-message">Assignment Notes / Document Details</label>
+                            <InputTextArea id="req-message" class="form-control" @bind-Value="model.Message" placeholder="Number of signers, scanback requirements, witness needs, or special instructions..." />
+                        </div>
+
+                        <button type="submit" class="btn btn-gold" disabled="@submitting" style="width:100%;">
+                            @(submitting ? "Submitting Request..." : "Submit Signing Request")
+                        </button>
+                    </EditForm>
+                }
+            </div>
+
+            <div style="display:grid; gap:1.5rem;">
+                <div class="card card-featured">
+                    <span class="eyebrow eyebrow-light">Already Have a Partner Account?</span>
+                    <h3 style="margin-top:0.35rem;">Notary Everyday Portal</h3>
+                    <p>Title companies and lenders with an existing account can place and track orders directly in our signing management portal.</p>
+                    <div style="display:flex; flex-wrap:wrap; gap:0.65rem;">
+                        <a href="https://www.notaryeveryday.com/client-login/90" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-sm">Client Login ↗</a>
+                        <a href="https://www.notaryeveryday.com/client-signup/90" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light btn-sm">New Client Sign Up ↗</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Need Immediate Dispatch?</h3>
+                    <p>For time-sensitive closings, same-day requests, or after-hours signing needs, call our desk directly:</p>
+                    <ul class="check-list">
+                        <li><strong>Office:</strong> <a href="tel:4233758770">(423) 375-8770</a></li>
+                        <li><strong>Direct:</strong> <a href="tel:4237152065">(423) 715-2065</a></li>
+                        <li><strong>Email:</strong> <a href="mailto:Bhsmith@elevatednotaryservs.com">Bhsmith@elevatednotaryservs.com</a></li>
+                        <li><strong>Hours:</strong> Mon–Fri 8:30 AM–8:00 PM ET &bull; Sat 10 AM–4 PM ET</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    private SigningRequestModel model = new();
+    private bool submitting;
+    private bool submitted;
+    private string? errorMessage;
+
+    private void SetCategory(string cat)
+    {
+        model.ClientCategory = cat;
+        model.ServiceType = cat == "Title / Lender Order"
+            ? "Purchase / Seller Loan Closing"
+            : "Mobile Notary (SE Tennessee)";
+    }
+
+    private async Task HandleSubmit()
+    {
+        submitting = true;
+        errorMessage = null;
+        try
+        {
+            var resp = await Http.PostAsJsonAsync("/api/leads", model);
+            if (resp.IsSuccessStatusCode)
+            {
+                submitted = true;
+            }
+            else
+            {
+                errorMessage = "We could not submit your request right now. Please call (423) 375-8770 or email Bhsmith@elevatednotaryservs.com.";
+            }
+        }
+        catch
+        {
+            errorMessage = "Connection error while sending your request. Please call (423) 375-8770.";
+        }
+        finally
+        {
+            submitting = false;
+        }
+    }
+
+    private void ResetForm()
+    {
+        model = new();
+        submitted = false;
+        errorMessage = null;
+    }
+
+    public class SigningRequestModel
+    {
+        public string ClientCategory { get; set; } = "Title / Lender Order";
+        [Required] public string Name { get; set; } = "";
+        public string Organization { get; set; } = "";
+        [Required, EmailAddress] public string Email { get; set; } = "";
+        [Required] public string Phone { get; set; } = "";
+        public string ServiceType { get; set; } = "Purchase / Seller Loan Closing";
+        public string PreferredDate { get; set; } = "";
+        public string Location { get; set; } = "";
+        public string Message { get; set; } = "";
+        public string Honeypot { get; set; } = "";
+    }
+}

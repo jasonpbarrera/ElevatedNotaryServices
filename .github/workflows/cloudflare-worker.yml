@@ -1,0 +1,79 @@
+name: Cloudflare Workers CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    name: Build & Deploy to Cloudflare Workers
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Cache NuGet Packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Publish Blazor Client
+        run: dotnet publish Client/ElevatedNotaryServices.Client.csproj -c Release -o publish_output -p:ContinuousIntegrationBuild=true
+
+      - name: Generate Per-Route Static SEO Shells
+        run: python3 scripts/generate-route-shells.py publish_output/wwwroot
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+
+      - name: Submit URLs to IndexNow
+        run: |
+          python3 -c '
+          import json, urllib.request
+          domain = "https://elevatednotary.jbdigitalservices.net"
+          host = "elevatednotary.jbdigitalservices.net"
+          urls = [
+              f"{domain}/",
+              f"{domain}/title-lender-solutions",
+              f"{domain}/services",
+              f"{domain}/request-signing",
+              f"{domain}/notary-partners",
+              f"{domain}/about",
+              f"{domain}/faqs",
+              f"{domain}/contact",
+              f"{domain}/privacy",
+              f"{domain}/terms"
+          ]
+          payload = json.dumps({
+              "host": host,
+              "key": "9c4f2a8b1e7d4065a3c9e1f8b2d47a0e",
+              "keyLocation": f"{domain}/9c4f2a8b1e7d4065a3c9e1f8b2d47a0e.txt",
+              "urlList": urls
+          }).encode("utf-8")
+          for ep in ["https://api.indexnow.org/indexnow", "https://www.bing.com/indexnow"]:
+              try:
+                  req = urllib.request.Request(ep, data=payload, headers={"Content-Type": "application/json; charset=utf-8", "User-Agent": "JBDigitalCI/1.0"})
+                  with urllib.request.urlopen(req, timeout=10) as resp:
+                      print(f"Submitted to {ep}: {resp.status}")
+              except Exception as e:
+                  print(f"Crawler notice ({ep}): {e}")
+          '

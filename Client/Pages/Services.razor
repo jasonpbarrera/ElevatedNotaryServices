@@ -1,0 +1,166 @@
+@page "/services"
+
+<PageTitle>Mobile Notary, RON &amp; Individual Services | Elevated Notary Services</PageTitle>
+<HeadContent>
+    <meta name="description" content="Mobile notary services in Cleveland, TN &amp; Southeast Tennessee, Remote Online Notarization (RON) nationwide, walk-in storefront notarizations, jail/detention center signings, and wedding officiant services." />
+</HeadContent>
+
+<section class="page-hero">
+    <div class="container">
+        <span class="eyebrow eyebrow-light">Individual &amp; Local Solutions</span>
+        <h1>Mobile, Storefront &amp; Online Notary Services</h1>
+        <p>
+            Whether you walk into our Cleveland, TN office, have us come to your home or hospital, or connect remotely from anywhere in the country, we make notarization straightforward and stress-free.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="tab-bar" role="tablist" aria-label="Service categories">
+            <button type="button" class="tab-btn @(activeTab == "mobile" ? "active" : "")" @onclick='() => activeTab = "mobile"'>Mobile &amp; Walk-In Notary</button>
+            <button type="button" class="tab-btn @(activeTab == "ron" ? "active" : "")" @onclick='() => activeTab = "ron"'>Remote Online (RON)</button>
+            <button type="button" class="tab-btn @(activeTab == "jail" ? "active" : "")" @onclick='() => activeTab = "jail"'>Jail &amp; Facility Notary</button>
+            <button type="button" class="tab-btn @(activeTab == "wedding" ? "active" : "")" @onclick='() => activeTab = "wedding"'>Wedding Officiant</button>
+        </div>
+
+        @if (activeTab == "mobile")
+        {
+            <div class="grid-2">
+                <div class="card">
+                    <span class="eyebrow">We Come to You — Or Walk Right In</span>
+                    <h2 style="font-size:2rem; margin: 0.5rem 0 0.85rem;">Mobile &amp; Storefront Notary Services</h2>
+                    <p>
+                        We serve individuals, families, businesses, and attorneys throughout Southeast Tennessee with punctual mobile travel or walk-in service at our Cleveland storefront (<strong>130 Bernham Dr NW</strong>).
+                    </p>
+                    <ul class="check-list">
+                        <li>Power of Attorney (POA) &amp; Healthcare Directives</li>
+                        <li>Wills, Trusts &amp; Estate Planning Packages</li>
+                        <li>Deeds, Affidavits &amp; Real Estate Documents</li>
+                        <li>Vehicle Titles, Bill of Sale &amp; Parental Consent Forms</li>
+                        <li>Hospital, Assisted Living &amp; Home Visits</li>
+                        <li>Evening, Weekend &amp; Same-Day Availability</li>
+                    </ul>
+                    <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
+                        <a href="https://calendar.app.google/vDKDJhA1K5muzWr18" target="_blank" rel="noopener noreferrer" class="btn btn-gold">Book Mobile Appointment ↗</a>
+                        <a href="/request-signing" class="btn btn-outline-navy">Request Custom Quote</a>
+                    </div>
+                </div>
+                <div class="card" style="background: var(--stone);">
+                    <h3>Local Service Area</h3>
+                    <p>Proudly serving Cleveland and surrounding Southeast Tennessee communities:</p>
+                    <div class="county-pills">
+                        <span class="pill">Cleveland, TN</span>
+                        <span class="pill">Bradley County</span>
+                        <span class="pill">Hamilton County</span>
+                        <span class="pill">Polk County</span>
+                        <span class="pill">Meigs County</span>
+                        <span class="pill">McMinn County</span>
+                        <span class="pill">Rhea County</span>
+                        <span class="pill">Monroe County</span>
+                    </div>
+                    <h4 style="font-size:1.25rem; margin-bottom:0.5rem;">What to Bring to Your Appointment</h4>
+                    <ul class="check-list">
+                        <li>Valid, unexpired government-issued photo ID</li>
+                        <li>Complete unsigned documents (sign in front of the notary)</li>
+                        <li>Any required witnesses (or ask us in advance if witnesses are needed)</li>
+                    </ul>
+                </div>
+            </div>
+        }
+        else if (activeTab == "ron")
+        {
+            <div class="grid-2">
+                <div class="card card-featured">
+                    <span class="eyebrow eyebrow-light">Nationwide Digital Notarization</span>
+                    <h2 style="font-size:2rem; margin: 0.5rem 0 0.85rem; color:#fff;">Remote Online Notarization (RON)</h2>
+                    <p>
+                        Complete your notarization securely from your home, office, or while traveling. Connect via encrypted audio-video session with a Tennessee-commissioned online notary — no travel required.
+                    </p>
+                    <ul class="check-list">
+                        <li>Available Nationwide (subject to applicable state laws)</li>
+                        <li>Secure identity verification &amp; tamper-evident digital seal</li>
+                        <li>Fast turnaround — receive your notarized PDF immediately</li>
+                        <li>Ideal for out-of-state signers, busy executives &amp; real estate closings</li>
+                    </ul>
+                    <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
+                        <a href="/request-signing" class="btn btn-gold">Schedule Online Notary</a>
+                        <a href="tel:4233758770" class="btn btn-outline-light">Call (423) 375-8770</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>What You'll Need for RON</h3>
+                    <ul class="check-list">
+                        <li>A smartphone, tablet, or computer with working camera and microphone</li>
+                        <li>Reliable high-speed internet connection</li>
+                        <li>Valid, unexpired government-issued photo ID (Driver's License or Passport)</li>
+                        <li>Your unsigned document ready in PDF format</li>
+                    </ul>
+                    <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:0;">
+                        Unsure if your receiving institution accepts Remote Online Notarization? Contact us before booking and we will help you verify requirements.
+                    </p>
+                </div>
+            </div>
+        }
+        else if (activeTab == "jail")
+        {
+            <div class="grid-2">
+                <div class="card">
+                    <span class="eyebrow">Respectful, Experienced Facility Coordination</span>
+                    <h2 style="font-size:2rem; margin: 0.5rem 0 0.85rem;">Jail &amp; Detention Center Notary Services</h2>
+                    <p>
+                        Navigating notarization at a county jail or detention facility requires patience, clear preparation, and strict adherence to facility security rules. We coordinate directly with families and attorneys to get essential documents notarized properly.
+                    </p>
+                    <ul class="check-list">
+                        <li>Power of Attorney (Financial &amp; Parental)</li>
+                        <li>Affidavits, Legal Authorizations &amp; Custody Documents</li>
+                        <li>Vehicle Title Transfers &amp; Property Releases</li>
+                        <li>Coordination with facility visitation schedules &amp; rules</li>
+                    </ul>
+                    <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
+                        <a href="/request-signing" class="btn btn-navy">Request Facility Signing</a>
+                        <a href="tel:4237152065" class="btn btn-outline-navy">Call Direct: (423) 715-2065</a>
+                    </div>
+                </div>
+                <div class="card" style="background: var(--stone);">
+                    <h3>Important Preparation Notes</h3>
+                    <ul class="check-list">
+                        <li>Confirm the inmate has acceptable identification on file or meets Tennessee facility ID rules</li>
+                        <li>Verify facility approval and visitation hours prior to appointment confirmation</li>
+                        <li>Provide complete, unsigned documents in advance so there are no delays at the facility</li>
+                    </ul>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="grid-2">
+                <div class="card">
+                    <span class="eyebrow">Tennessee Wedding Officiant</span>
+                    <h2 style="font-size:2rem; margin: 0.5rem 0 0.85rem;">Wedding Officiant Services</h2>
+                    <p>
+                        Celebrate your marriage with a calm, warm, and professional officiant. From intimate courthouse-style elopements and private home ceremonies to full venue weddings across Southeast Tennessee, we handle your ceremony and license signing with care.
+                    </p>
+                    <ul class="check-list">
+                        <li>Simple License Signings &amp; Intimate Elopements</li>
+                        <li>Personalized Traditional or Modern Ceremonies</li>
+                        <li>Prompt, accurate marriage license completion &amp; filing guidance</li>
+                        <li>Flexible scheduling across Cleveland &amp; Southeast Tennessee</li>
+                    </ul>
+                    <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
+                        <a href="/request-signing" class="btn btn-gold">Inquire About Your Date</a>
+                        <a href="tel:4233758770" class="btn btn-outline-navy">Call (423) 375-8770</a>
+                    </div>
+                </div>
+                <div class="card" style="background: var(--stone);">
+                    <h3>Getting Started</h3>
+                    <p>Have your Tennessee marriage license ready (issued by the County Clerk) and let us know your preferred date, location, and ceremony style. We'll walk you through every detail.</p>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+@code {
+    private string activeTab = "mobile";
+}

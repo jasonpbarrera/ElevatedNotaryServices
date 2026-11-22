@@ -1,0 +1,176 @@
+@inherits LayoutComponentBase
+@using System.Reflection
+@inject NavigationManager Nav
+
+<div class="top-bar">
+    <div class="container top-bar-inner">
+        <div class="top-bar-group">
+            <span class="top-bar-badge">$1,000,000 E&amp;O Insured</span>
+            <span>&bull;</span>
+            <span>50-State Signing Coordination</span>
+            <span>&bull;</span>
+            <span>Cleveland, TN Walk-In Storefront</span>
+        </div>
+        <div class="top-bar-group">
+            <a href="tel:4233758770">Office: (423) 375-8770</a>
+            <span>&bull;</span>
+            <a href="tel:4237152065">Direct: (423) 715-2065</a>
+            <span>&bull;</span>
+            <a href="https://www.notaryeveryday.com/client-login/90" target="_blank" rel="noopener noreferrer">Partner Login ↗</a>
+        </div>
+    </div>
+</div>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="brand" @onclick="CloseMenu">
+            <span class="brand-seal" aria-hidden="true">E</span>
+            <span class="brand-text">
+                <span class="brand-name">ELEVATED NOTARY</span>
+                <span class="brand-sub">Services &amp; Signing Coordination</span>
+            </span>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Main navigation">
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Home</NavLink>
+            <NavLink class="nav-link" href="/title-lender-solutions">Title &amp; Lenders</NavLink>
+            <NavLink class="nav-link" href="/services">Individual &amp; Mobile</NavLink>
+            <NavLink class="nav-link" href="/notary-partners">Notary Partners</NavLink>
+            <NavLink class="nav-link" href="/about">About</NavLink>
+            <NavLink class="nav-link" href="/faqs">FAQs</NavLink>
+            <NavLink class="nav-link" href="/contact">Contact</NavLink>
+        </nav>
+
+        <div class="header-actions">
+            <a href="https://www.notaryeveryday.com/client-login/90" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light btn-sm">
+                Client Portal
+            </a>
+            <a href="/request-signing" class="btn btn-gold btn-sm">
+                Request a Signing
+            </a>
+        </div>
+
+        <button type="button" class="mobile-menu-btn" @onclick="ToggleMenu" aria-label="Toggle navigation menu" aria-expanded="@menuOpen">
+            @if (menuOpen)
+            {
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            }
+            else
+            {
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            }
+        </button>
+    </div>
+
+    @if (menuOpen)
+    {
+        <nav class="mobile-drawer" aria-label="Mobile navigation">
+            <NavLink href="/" Match="NavLinkMatch.All" @onclick="CloseMenu">Home</NavLink>
+            <NavLink href="/title-lender-solutions" @onclick="CloseMenu">Title &amp; Lender Solutions</NavLink>
+            <NavLink href="/services" @onclick="CloseMenu">Individual &amp; Mobile Services</NavLink>
+            <NavLink href="/notary-partners" @onclick="CloseMenu">Notary Partners</NavLink>
+            <NavLink href="/about" @onclick="CloseMenu">About ENS</NavLink>
+            <NavLink href="/faqs" @onclick="CloseMenu">FAQs</NavLink>
+            <NavLink href="/contact" @onclick="CloseMenu">Contact &amp; Storefront</NavLink>
+            <div class="mobile-drawer-actions">
+                <a href="/request-signing" class="btn btn-gold" @onclick="CloseMenu">Request a Signing</a>
+                <a href="https://www.notaryeveryday.com/client-login/90" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light">Notary Everyday Client Portal ↗</a>
+            </div>
+        </nav>
+    }
+</header>
+
+<main id="main-content">
+    @Body
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <a href="/" class="brand" style="margin-bottom: 1rem;">
+                    <span class="brand-seal" aria-hidden="true">E</span>
+                    <span class="brand-text">
+                        <span class="brand-name">ELEVATED NOTARY</span>
+                        <span class="brand-sub">Services &amp; Signing Coordination</span>
+                    </span>
+                </a>
+                <p style="font-size: 0.88rem; max-width: 310px; margin: 0 0 1rem;">
+                    Nationwide 50-state loan signing coordination for title companies, lenders, and attorneys — paired with local mobile, RON, and walk-in storefront service in Cleveland, Tennessee.
+                </p>
+                <div style="font-size: 0.84rem; color: var(--gold-300); font-weight: 600;">
+                    $1,000,000 E&amp;O Coverage &bull; 6+ Years Experience
+                </div>
+            </div>
+
+            <div>
+                <div class="footer-heading">Title &amp; Lenders</div>
+                <ul class="footer-links">
+                    <li><a href="/title-lender-solutions">Nationwide Signing Coordination</a></li>
+                    <li><a href="/request-signing">Request a Signing</a></li>
+                    <li><a href="https://www.notaryeveryday.com/client-login/90" target="_blank" rel="noopener noreferrer">Client Portal Login ↗</a></li>
+                    <li><a href="https://www.notaryeveryday.com/client-signup/90" target="_blank" rel="noopener noreferrer">New Client Sign Up ↗</a></li>
+                    <li><a href="/notary-partners">Become an ENS Notary Partner</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="footer-heading">Individual Services</div>
+                <ul class="footer-links">
+                    <li><a href="/services">Mobile Notary Services</a></li>
+                    <li><a href="/services">Remote Online Notarization (RON)</a></li>
+                    <li><a href="/services">Jail &amp; Detention Center Notary</a></li>
+                    <li><a href="/services">Wedding Officiant Services</a></li>
+                    <li><a href="https://calendar.app.google/vDKDJhA1K5muzWr18" target="_blank" rel="noopener noreferrer">Book Appointment Online ↗</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="footer-heading">Cleveland, TN Storefront</div>
+                <ul class="footer-links">
+                    <li>130 Bernham Dr NW<br />Cleveland, TN 37312 (Walk-Ins Welcome)</li>
+                    <li><a href="tel:4233758770">Office: (423) 375-8770</a></li>
+                    <li><a href="tel:4237152065">Direct: (423) 715-2065</a></li>
+                    <li><a href="mailto:Bhsmith@elevatednotaryservs.com">Bhsmith@elevatednotaryservs.com</a></li>
+                    <li style="font-size: 0.82rem; color: rgba(255,255,255,0.62);">Mon–Fri 8:30 AM–8:00 PM ET &bull; Sat 10 AM–4 PM</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-disclaimer">
+            DISCLAIMER: I AM NOT AN ATTORNEY LICENSED TO PRACTICE LAW IN THE STATE OF TENNESSEE AND I MAY NOT GIVE LEGAL ADVICE OR ACCEPT FEES FOR LEGAL ADVICE.
+        </div>
+
+        <div class="footer-bottom">
+            <div>&copy; @DateTime.UtcNow.Year Elevated Notary Services. All rights reserved.</div>
+            <div class="footer-legal-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/about">About</a>
+                <a href="/faqs">FAQs</a>
+            </div>
+            <div class="jb-credit">
+                v@(AppVersion) &middot; @(BuildDate) &middot; Powered by <a href="https://jbdigitalservices.net" target="_blank" rel="noopener noreferrer">JB Digital Services</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+@code {
+    private bool menuOpen;
+
+    private static readonly Assembly CurrentAssembly = typeof(MainLayout).Assembly;
+
+    private static readonly string AppVersion =
+        CurrentAssembly.GetName().Version is { } v
+            ? $"{v.Major}.{v.Minor}.{v.Build}"
+            : "1.0.0";
+
+    private static readonly string BuildDate =
+        CurrentAssembly.GetCustomAttributes<AssemblyMetadataAttribute>()
+            .FirstOrDefault(a => a.Key == "BuildTimestamp")?.Value
+        ?? DateTime.UtcNow.ToString("MMM d, yyyy");
+
+    private void ToggleMenu() => menuOpen = !menuOpen;
+    private void CloseMenu() => menuOpen = false;
+}
