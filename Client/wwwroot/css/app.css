@@ -245,18 +245,54 @@ h1, h2, h3, h4 {
 }
 
 .brand-seal {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1.5px solid var(--gold-500);
-  background: rgba(197, 160, 89, 0.09);
+  background: var(--navy-950);
   display: grid;
   place-items: center;
-  font-family: var(--font-serif);
-  font-size: 1.45rem;
-  font-weight: 700;
-  color: var(--gold-400);
+  overflow: hidden;
   flex-shrink: 0;
+}
+
+.brand-seal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.owner-portrait {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.15rem;
+  border: 1px solid var(--border-gold);
+}
+
+.photo-tile {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-gold);
+  box-shadow: var(--shadow-sm);
+  background: var(--surface);
+}
+
+.photo-tile img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+.photo-tile-caption {
+  padding: 0.75rem 1rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--navy-900);
+  background: var(--surface);
 }
 
 .brand-text {
