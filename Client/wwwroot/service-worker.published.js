@@ -44,12 +44,19 @@ async function onFetch(event) {
         || url.pathname.endsWith('.html')
         || url.pathname.endsWith('.css');
 
-    // Network-first for HTML navigation & CSS using URL string + redirect:'follow'
-    // so directory-shell redirects (e.g. /services -> /services/) never fail with opaqueredirect
+    // Network-first for HTML navigation & CSS using URL string + redirect:'follow'.
+    // Strip the .redirected flag when Cloudflare redirects /route -> /route/ so browsers never reject navigate FetchEvents.
     if (isDynamicAsset) {
         try {
             const networkResponse = await fetch(req.url, { cache: 'no-cache', redirect: 'follow' });
             if (networkResponse && networkResponse.ok) {
+                if (isNavigation && networkResponse.redirected) {
+                    return new Response(networkResponse.body, {
+                        status: networkResponse.status,
+                        statusText: networkResponse.statusText,
+                        headers: networkResponse.headers
+                    });
+                }
                 return networkResponse;
             }
         } catch {
