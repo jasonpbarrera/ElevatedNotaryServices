@@ -1,7 +1,7 @@
 name = "elevated-notary-services"
 main = "worker/index.js"
 compatibility_date = "2026-04-01"
-workers_dev = true
+workers_dev = false
 
 [assets]
 directory = "publish_output/wwwroot"
@@ -14,6 +14,7 @@ LEAD_NOTIFICATION_EMAIL = "info@jbdigitalservices.net"
 BREVO_SENDER_EMAIL = "info@jbdigitalservices.net"
 DEMO_MODE = "true"
 
-[[routes]]
-pattern = "elevatednotary.jbdigitalservices.net"
-custom_domain = true
+# Temporarily disabled while awaiting client response. Uncomment to re-enable:
+# [[routes]]
+# pattern = "elevatednotary.jbdigitalservices.net"
+# custom_domain = true
